@@ -3,11 +3,12 @@ import News from "../models/News.js";
 //create
 export const uploadNews = async(req,res)=>{
     try {
-       const{title,description,image,isTrending}=req.body;
+       const{title,description,image,isTrending,category}=req.body;
        const news= new News({
         title,
         description,
         image,
+        category,
         isTrending
        })
        await news.save();
@@ -20,7 +21,11 @@ export const uploadNews = async(req,res)=>{
 //get News
 export const getNews = async(req,res)=>{
     try {
-        const news= await News.find()
+        const {category,isTrending}= req.query
+        const filter= {}
+        if(category)filter.category=category
+        if(isTrending!==undefined)filter.isTrending= isTrending==='true'
+        const news= await News.find(filter)
         res.status(200).json({message:"News fetched successfully",news})
     } catch (error) {
       res.status(500).json({message:"Error,cannot get news",error:error.message})  
