@@ -1,7 +1,8 @@
-const mongoose = require("mongoose")
-const validator = require("validator")
-const jwt = require("jsonwebtoken")
-const bcrypt = require("bcrypt")
+import mongoose from "mongoose"
+import validator from "validator"
+import jwt from "jsonwebtoken"
+import bcrypt from "bcrypt"
+
 const userRegistrationSchema = new mongoose.Schema({
     firstName: {
         type: String,
@@ -75,4 +76,4 @@ userRegistrationSchema.methods.comparePassword = async function (candidatePasswo
 const User = mongoose.model("User", userRegistrationSchema)
 
 
-module.exports = User
+export default User;
