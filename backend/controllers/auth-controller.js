@@ -1,6 +1,6 @@
-const User = require("../models/user-Model")
+import User from "../models/user-Model.js"
 
-const register = async (req, res) => {
+ export const register = async (req, res) => {
     try {
         const { firstName, lastName, email, password, confirmPassword } = req.body;
 
@@ -32,7 +32,7 @@ const register = async (req, res) => {
     }
 }
 
-const login = async (req, res) => {
+export const login = async (req, res) => {
     try {
         const { email, password } = req.body
         const userExist = await User.findOne({ email })
@@ -56,7 +56,7 @@ const login = async (req, res) => {
     }
 }
 
-const logout = async (req, res) => {
+export const logout = async (req, res) => {
     try {
         res.cookie("token", null, { expire: new Date(Date.now()) })
         return res.status(200).json({ message: "Logout successful" })
@@ -65,7 +65,7 @@ const logout = async (req, res) => {
     }
 }
 
-const users = async (req, res) => {
+export const users = async (req, res) => {
     try {
         const users = req.user
         return res.status(200).json({ data: users })
@@ -73,5 +73,3 @@ const users = async (req, res) => {
         return res.status(400).json({ message: error.message })
     }
 }
-
-module.exports = { register, login, users, logout }

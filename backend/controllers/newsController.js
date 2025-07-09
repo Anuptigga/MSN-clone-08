@@ -29,8 +29,8 @@ export const getNews = async(req,res)=>{
 //find by id
 export const getNewsById = async(req,res)=>{
     try {
-        const {newsId}=req.body
-        const news = await News.findById(newsId)
+        const {id}=req.params
+        const news = await News.findById(id)
         res.status(200).json({message:"News fetched successfully",news})
     } catch (error) {
         res.status(500).json({message:"Error,getting news",error:error.message})
